@@ -1,6 +1,3 @@
-// interface DirectoryInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-//   webkitdirectory?: boolean
-// }
 import React, { useState } from 'react'
 
 export function SettingsField(): React.JSX.Element {
@@ -12,7 +9,6 @@ export function SettingsField(): React.JSX.Element {
       window.electron.ipcRenderer.send('chronobreakDirectorySelected', result.filePaths[0])
     }
     setDirectory(result.filePaths[0] || '')
-
   }
 
   return (
@@ -20,6 +16,12 @@ export function SettingsField(): React.JSX.Element {
       <h2>Select the Chronobreak Game Server File (where GameServerConsole.exe stands)</h2>
       <h3>Current Directory: {directory}</h3>
       <button onClick={handlePickDirectory}>Select</button>
+      {global.executableNotFound == false && (
+        <p style={{ color: 'red' }}>
+          The GameServerConsole.exe file was not found in the selected directory. Please select the
+          correct folder.
+        </p>
+      )}
     </div>
   )
 }
