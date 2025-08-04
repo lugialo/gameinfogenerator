@@ -4,11 +4,11 @@
 import React from 'react'
 
 export function SettingsField(): React.JSX.Element {
-  const handlePickDirectory = async (): Promise<void> => {
-    const result = await window.electron.ipcRenderer.invoke('pick-chronobreak-directory')
-    if (result && !result.canceled) {
-      window.electron.ipcRenderer.send('chronobreakDirectorySelected', result.filePaths[0])
-    }
+  // const [chronobreakDirectory, setChronobreakDirectory] = useState<string | null>(null)
+
+  const handleChronobreakDirectorySelection = (file: File | null): void => {
+    console.log('Chronobreak directory selected:', file?.webkitRelativePath)
+    // setChronobreakDirectory(file?.webkitRelativePath || null)
   }
 
   return (
