@@ -14,7 +14,7 @@ export function SettingsField(): React.JSX.Element {
   return (
     <div>
       <h2>Select the Chronobreak Game Server File (where GameServerConsole.exe stands)</h2>
-      <button onClick={handlePickDirectory}>Select</button>
+      <button onClick={handlePickDirectory}>Select folder</button>
     </div>
   )
 }
