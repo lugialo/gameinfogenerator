@@ -1,7 +1,8 @@
-import { app, shell, BrowserWindow, ipcMain } from 'electron'
+import { app, shell, BrowserWindow, ipcMain, dialog } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+import { startServer } from './serverStart'
 
 function createWindow(): void {
   // Create the browser window.
@@ -51,6 +52,22 @@ app.whenReady().then(() => {
 
   // IPC test
   ipcMain.on('ping', () => console.log('pong'))
+
+  ipcMain.handle('pick-chronobreak-directory', async () => {
+    return await dialog.showOpenDialog({
+      properties: ['openDirectory']
+    })
+  })
+
+  ipcMain.on('chronobreakDirectorySelected', (_, directoryPath) => {
+    global.chronobreakDirectory = directoryPath
+    console.log('Chronobreak directory received from renderer:', directoryPath)
+  })
+
+  ipcMain.on('startServer', (event) => {
+    startServer(global.chronobreakDirectory)
+    event.reply('serverStarted', 'Server started successfully')
+  })
 
   createWindow()
 
