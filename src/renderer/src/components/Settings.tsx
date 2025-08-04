@@ -13,16 +13,8 @@ export function SettingsField(): React.JSX.Element {
 
   return (
     <div>
-      <h2>Select the Chronobreak Game Server File</h2>
-      <input
-        type="file"
-        // @ts-ignore: webkitdirectory is not a standard HTML attribute
-        webkitdirectory="true"
-        onChange={(e) => {
-          const file = e.target.files?.[0] || null
-          handleChronobreakDirectorySelection(file)
-        }}
-      />
+      <h2>Select the Chronobreak Game Server File (where GameServerConsole.exe stands)</h2>
+      <button onClick={handlePickDirectory}>Select folder</button>
     </div>
   )
 }
