@@ -4,17 +4,25 @@
 import React from 'react'
 
 export function SettingsField(): React.JSX.Element {
-  const handlePickDirectory = async (): Promise<void> => {
-    const result = await window.electron.ipcRenderer.invoke('pick-chronobreak-directory')
-    if (result && !result.canceled) {
-      window.electron.ipcRenderer.send('chronobreakDirectorySelected', result.filePaths[0])
-    }
+  // const [chronobreakDirectory, setChronobreakDirectory] = useState<string | null>(null)
+
+  const handleChronobreakDirectorySelection = (file: File | null): void => {
+    console.log('Chronobreak directory selected:', file?.webkitRelativePath)
+    // setChronobreakDirectory(file?.webkitRelativePath || null)
   }
 
   return (
     <div>
-      <h2>Select the Chronobreak Game Server File (where GameServerConsole.exe stands)</h2>
-      <button onClick={handlePickDirectory}>Select</button>
+      <h2>Select the Chronobreak Game Server File</h2>
+      <input
+        type="file"
+        // @ts-ignore: webkitdirectory is not a standard HTML attribute
+        webkitdirectory="true"
+        onChange={(e) => {
+          const file = e.target.files?.[0] || null
+          handleChronobreakDirectorySelection(file)
+        }}
+      />
     </div>
   )
 }
