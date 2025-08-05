@@ -1,10 +1,12 @@
+import { BrowserWindow } from 'electron'
 import * as child_process from 'child_process'
 import * as fs from 'fs'
 import * as path from 'path'
 
 export function startServer(serverDirectory: string): void {
   const { spawn } = child_process
-  let executableNotFound = false
+
+  const mainWindow = BrowserWindow.getFocusedWindow()
 
   console.log('Starting server in directory:', serverDirectory)
 
@@ -13,13 +15,18 @@ export function startServer(serverDirectory: string): void {
     return
   }
 
+  // Check if the executable exists in the specified directory
+  // If it does not exist, send a message to the main window through webContents and return
   const executablePath = path.join(serverDirectory, 'GameServerConsole.exe')
   if (!fs.existsSync(executablePath)) {
     console.error('Executable not found:', executablePath)
-    global.executableNotFound = true
+    if (mainWindow) {
+      mainWindow.webContents.send('chronobreakDirectoryValid', false)
+    }
     return
   }
 
+  // Spawn the server process
   const serverProcess = spawn('GameServerConsole.exe', [], {
     cwd: serverDirectory,
     shell: true,
@@ -37,5 +44,6 @@ export function startServer(serverDirectory: string): void {
 
   serverProcess.on('spawn', () => {
     console.log('Server started successfully')
+    mainWindow?.webContents.send('chronobreakDirectoryValid', true)
   })
 }
