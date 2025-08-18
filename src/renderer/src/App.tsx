@@ -1,3 +1,4 @@
+import { ChampionSelect } from './components/ChampionSelect/ChampionSelect'
 import { SettingsField } from './components/Settings'
 
 function App(): React.JSX.Element {
@@ -11,6 +12,7 @@ function App(): React.JSX.Element {
   return (
     <>
       <SettingsField></SettingsField>
+      <ChampionSelect></ChampionSelect>
       <button onClick={handleStartServer}>Iniciar</button>
     </>
   )
