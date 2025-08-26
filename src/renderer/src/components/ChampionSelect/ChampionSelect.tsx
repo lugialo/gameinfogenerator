@@ -4,17 +4,20 @@ import { champions } from '../../utils/champions'
 
 export function ChampionSelect(): React.JSX.Element {
   return (
-    <div>
-      <h2>Champion Select</h2>
-      {champions.map((champion) => (
-        <ChampionSelectCard
-          key={champion.championName}
-          championName={champion.championName}
-          championImage={champion.championImage}
-        >
-          <button className="bg-blue-500">Select</button>
-        </ChampionSelectCard>
-      ))}
-    </div>
+    <>
+      <h2 className="text-center">Champion Select</h2>
+      <div className="grid grid-cols-6 gap-3 text-center px-8 min-h-60 max-h-118 overflow-y-auto">
+        {champions.map((champion) => (
+          <ChampionSelectCard
+            key={champion.championName}
+            championName={champion.championName}
+            championImage={champion.championImage}
+            onClick={() => {
+              console.log(`Selected champion: ${champion.championName}`)
+            }}
+          ></ChampionSelectCard>
+        ))}
+      </div>
+    </>
   )
 }
