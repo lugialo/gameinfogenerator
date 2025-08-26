@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router'
 
 export function SettingsField(): React.JSX.Element {
   const [directory, setDirectory] = useState<string>('')
@@ -40,6 +41,12 @@ export function SettingsField(): React.JSX.Element {
           correct folder.
         </p>
       )}
+
+      <div>
+        <Link to="/lobby">
+          <button>Next</button>
+        </Link>
+      </div>
     </div>
   )
 }

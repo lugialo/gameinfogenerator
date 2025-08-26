@@ -1,20 +1,13 @@
-import { ChampionSelect } from './components/ChampionSelect/ChampionSelect'
+import { Routes, Route } from 'react-router'
 import { SettingsField } from './components/Settings'
+import LobbyStart from './LobbyStart'
 
 function App(): React.JSX.Element {
-  const handleStartServer = (): void => {
-    window.electron.ipcRenderer.send('startServer')
-    console.log('Server start request sent')
-    window.electron.ipcRenderer.on('serverStarted', (message) => {
-      console.log(message)
-    })
-  }
   return (
-    <>
-      <SettingsField></SettingsField>
-      <ChampionSelect></ChampionSelect>
-      <button onClick={handleStartServer}>Iniciar</button>
-    </>
+    <Routes>
+      <Route path="/" element={<SettingsField />} />
+      <Route path="/lobby" element={<LobbyStart />} />
+    </Routes>
   )
 }
 
