@@ -3,6 +3,7 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import { startServer } from './serverStart'
+import { championFileGenerator } from './championFileGenerator'
 
 function createWindow(): void {
   // Create the browser window.
@@ -67,6 +68,20 @@ app.whenReady().then(() => {
   ipcMain.on('startServer', (event) => {
     startServer(global.chronobreakDirectory)
     event.reply('serverStarted', 'Server started successfully')
+  })
+
+  ipcMain.handle('setChampion', async (_, championName: string) => {
+    const serverDirectory = global.chronobreakDirectory
+    if (!serverDirectory) {
+      console.error('Chronobreak directory not set')
+      return
+    }
+    championFileGenerator(championName, serverDirectory)
+    console.log('Champion file generated for:', championName, 'in directory:', serverDirectory)
+  })
+
+  ipcMain.handle('getChronobreakDirectory', () => {
+    return global.chronobreakDirectory
   })
 
   createWindow()

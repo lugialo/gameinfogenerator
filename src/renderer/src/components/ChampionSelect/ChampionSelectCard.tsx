@@ -6,7 +6,10 @@ export function ChampionSelectCard(
   }>
 ): React.JSX.Element {
   return (
-    <div onClick={() => props.onClick()} className="cursor-pointer w-fit">
+    <div
+      onClick={() => props.onClick()}
+      className="cursor-pointer w-fit"
+    >
       <h3>{props.championName}</h3>
       <img src={props.championImage} alt={`${props.championName} icon`} />
       {props.children}
