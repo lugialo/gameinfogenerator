@@ -2,7 +2,14 @@ import React from 'react'
 import { ChampionSelectCard } from './ChampionSelectCard'
 import { champions } from '../../utils/champions'
 
-export function ChampionSelect(): React.JSX.Element {
+interface ChampionSelectProps {
+  championSelected: (championName: string) => void
+}
+
+export function ChampionSelect({ championSelected }: ChampionSelectProps): React.JSX.Element {
+  const handleChampionSelection = (championName: string): void => {
+    championSelected(championName)
+  }
   return (
     <>
       <h2 className="text-center">Champion Select</h2>
@@ -12,9 +19,7 @@ export function ChampionSelect(): React.JSX.Element {
             key={champion.championName}
             championName={champion.championName}
             championImage={champion.championImage}
-            onClick={() => {
-              console.log(`Selected champion: ${champion.championName}`)
-            }}
+            onClick={() => handleChampionSelection(champion.championName)}
           ></ChampionSelectCard>
         ))}
       </div>

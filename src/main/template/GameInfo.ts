@@ -1,3 +1,4 @@
+export const gameInfoTemplate = (championName: string): string => `
 {
 	"gameId": 1,
 	"game": {
@@ -41,7 +42,7 @@
 			"blowfishKey": "17BLOhi6KZsTtldTsizvHg==",
 			"rank": "DIAMOND",
 			"name": "Test",
-			"champion": "Ashe",
+			"champion": "${championName}",
 			"team": "BLUE",
 			"skin": 0,
 			"summoner1": "SummonerFlash",
@@ -101,3 +102,5 @@
 		}
 	]
 }
+
+`
