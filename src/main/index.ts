@@ -3,6 +3,7 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import { startServer } from './serverStart'
+import { startClient } from './clientStart'
 import { championFileGenerator } from './championFileGenerator'
 
 function createWindow(): void {
@@ -65,9 +66,25 @@ app.whenReady().then(() => {
     console.log('Chronobreak directory received from renderer:', directoryPath)
   })
 
+  ipcMain.handle('pick-game-client-directory', async () => {
+    return await dialog.showOpenDialog({
+      properties: ['openDirectory']
+    })
+  })
+
+  ipcMain.on('gameClientDirectorySelected', (_, directoryPath) => {
+    global.gameClientDirectory = directoryPath
+    console.log('Game client directory received from renderer:', directoryPath)
+  })
+
   ipcMain.on('startServer', (event) => {
     startServer(global.chronobreakDirectory)
     event.reply('serverStarted', 'Server started successfully')
+  })
+
+  ipcMain.on('startClient', (event) => {
+    startClient(global.gameClientDirectory)
+    event.reply('clientStarted', 'Client started successfully')
   })
 
   ipcMain.handle('setChampion', async (_, championName: string) => {
