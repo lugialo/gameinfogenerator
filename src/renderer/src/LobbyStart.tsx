@@ -19,6 +19,7 @@ function LobbyStart(): React.JSX.Element {
       }
     }
     window.electron.ipcRenderer.send('startServer')
+    window.electron.ipcRenderer.send('startClient')
     console.log('Server start request sent')
     window.electron.ipcRenderer.on('serverStarted', (message) => {
       console.log(message)
