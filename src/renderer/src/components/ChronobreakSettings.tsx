@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router'
 
 export function ChronobreakSettings(): React.JSX.Element {
   const [directory, setDirectory] = useState<string>('')
@@ -31,22 +30,18 @@ export function ChronobreakSettings(): React.JSX.Element {
   }, [])
 
   return (
-    <div>
-      <h2>Select the Chronobreak Game Server File (where GameServerConsole.exe stands)</h2>
-      <h3>Current Directory: {directory}</h3>
-      <button onClick={handlePickDirectory}>Select</button>
-      {!directoryValid && (
-        <p style={{ color: 'red' }}>
-          The GameServerConsole.exe file was not found in the selected directory. Please select the
-          correct folder.
-        </p>
-      )}
-
-      <div>
-        <Link to="/lobby">
-          <button>Next</button>
-        </Link>
+    <>
+      <div className="text-center">
+        <h2>Select the Chronobreak Game Server File (where GameServerConsole.exe stands)</h2>
+        <h3>Current Directory: {directory}</h3>
+        <button onClick={handlePickDirectory}>Select</button>
+        {!directoryValid && (
+          <p style={{ color: 'red' }}>
+            The GameServerConsole.exe file was not found in the selected directory. Please select
+            the correct folder.
+          </p>
+        )}
       </div>
-    </div>
+    </>
   )
 }

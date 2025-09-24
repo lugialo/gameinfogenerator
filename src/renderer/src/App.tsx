@@ -4,10 +4,12 @@ import { Settings } from './components/Settings'
 
 function App(): React.JSX.Element {
   return (
-    <Routes>
-      <Route path="/" element={<Settings />} />
-      <Route path="/lobby" element={<LobbyStart />} />
-    </Routes>
+    <div className="bg-[hsla(205,46%,10%,1)] min-h-screen w-full">
+      <Routes>
+        <Route path="/" element={<Settings />} />
+        <Route path="/lobby" element={<LobbyStart />} />
+      </Routes>
+    </div>
   )
 }
 

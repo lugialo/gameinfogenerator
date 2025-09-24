@@ -24,10 +24,12 @@ export function ClientSettings(): React.JSX.Element {
   }, [])
 
   return (
-    <div>
+    <div className="text-center">
       <h2>Select the League of Legends Client File (where LeagueofLegends.exe stands)</h2>
-      <h3>Current Directory: {directory}</h3>
-      <button onClick={handlePickDirectory}>Select</button>
+      <div>
+        <h3>Current Directory: {directory}</h3>
+        <button onClick={handlePickDirectory}>Select</button>
+      </div>
       {!directoryValid && (
         <p style={{ color: 'red' }}>
           The Game Client file was not found in the selected directory. Please select the correct
